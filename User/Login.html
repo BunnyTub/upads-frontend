@@ -1,0 +1,21 @@
+---
+---
+<!DOCTYPE HTML>
+<html>
+    <head>
+        {% include RequiredHeaders.html %}
+        <title>UPADS Login</title>
+    </head>
+    <body>
+        {% include LoggedOutNavigationBar.html %}
+        <h1 class="HorizontallyCenteredText">Log into UPADS</h1>
+        <h2 id="LoginStatusText" class="HorizontallyCenteredText">Checking status...</h2>
+        <div id="LoginDetailsEntry" class="BlockCenter">
+            <input id="LoginUsernameInput" type="text" required minlength="1" placeholder="Username" autocomplete="username"></input>
+            <br>
+            <input id="LoginPasswordInput" type="password" required minlength="1" placeholder="Password" autocomplete="current-password"></input>
+            <br>
+            <button class="button" onclick="PerformLogin();">Login</a>
+        </div>
+    </body>
+</html>

@@ -3,14 +3,17 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+        {% include RequiredHeaders.html %}
         <title>UPADS</title>
-        <link rel="stylesheet" type="text/css" href="/style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     </head>
     <body>
-        {% include Stage1NavigationBar.html %}
-        <h1 class="HorizontallyCenteredText">Teto mama sume</h1>
+        {% include LoggedOutNavigationBar.html %}
+        <div class="FlexCenter">
+            <img src="/Images/Vectors/UPADS.svg" />
+            <h1 class="HorizontallyCenteredText">
+                This is the official site for the Unified Product Aggregation and Dissemination System.<br>
+                You must be registered in order to use it. If you are already registered, please log in.
+            </h1>
+        </div>
     </body>
 </html>

@@ -7,6 +7,27 @@ body {
     transition: all 100ms;
 }
 
+.FlexCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.BlockCenter {
+    display: block;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+img {
+    max-height: 128px;
+    max-width: 128px;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
 a {
     color: aquamarine;
 }
@@ -15,20 +36,92 @@ a:hover {
     color: aqua;
 }
 
+h1 {
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+h2 {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    font-weight: 400;
+}
+
+#LoadingOverlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	min-width: 100%;
+	min-height: 100%;
+	opacity: 0;
+	background-color: rgb(0, 0, 0, 1);
+	transition: all 1500ms linear;
+	pointer-events: none;
+}
+
+#LoadingIcon {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	max-width: 256px;
+	max-height: 256px;
+	margin: 0;
+	animation: LoadingSpinnerAnimation 1250ms infinite linear;
+	pointer-events: none;
+}
+
+@keyframes LoadingSpinnerAnimation {
+	from {
+		transform: translate(-50%, -50%) rotate(0deg);
+	}
+	to {
+		transform: translate(-50%, -50%) rotate(360deg);
+	}
+}
+
 #TopNavigationBar {
-    background-color: rgb(40, 40, 40);
-    background: linear-gradient(rgb(40, 40, 40), rgb(28, 28, 28));
-    border-bottom: 2px solid rgb(100, 100, 100);
+    display: flex;
+    align-items: center;
+	position: sticky;
+	top: 0;
     height: 48px;
     min-height: 48px;
     max-height: 48px;
-    box-sizing: border-box;
-    margin: 0px;
-    padding: 0px;
-    align-items: center;
     justify-content: center;
-    display: flex;
+    background-color: rgb(40, 40, 40);
+    background: linear-gradient(rgb(40, 40, 40), rgb(28, 28, 28));
+    border-bottom: 2px solid rgb(100, 100, 100);
+    box-sizing: border-box;
+    margin: 0 0 10px 0;
+    padding: 0;
+	transition: all 700ms ease-in-out;
+	animation: TopNavigationBarSlideInAnimation 700ms ease-in-out;
 }
+
+/* .TopNavigationBarSlideOut #TopNavigationBar {
+	animation: TopNavigationBarSlideOutAnimation 700ms ease-in;
+} */
+
+@keyframes TopNavigationBarSlideInAnimation {
+	from {
+		transform: translateY(-400px);
+	}
+	to {
+		transform: translateY(0px);
+	}
+}
+
+/* @keyframes TopNavigationBarSlideOutAnimation {
+	from {
+		transform: translateY(0px);
+	}
+	to {
+		transform: translateY(-400px);
+	}
+} */
 
 #TopNavigationBarTitle {
     padding-left: 12px;
@@ -48,10 +141,106 @@ a:hover {
     flex: 1;
 }
 
+#LoginDetailsEntry {
+	visibility: collapse;
+}
+
+a {
+    display: block;
+    font-size: 18pt;
+}
+
 .HorizontallyCenteredText {
     text-align: center;
 }
 
 .HorizontallyLeftText {
     text-align: left;
+}
+
+input {
+    background-color: #fff;
+	background: linear-gradient(#242424, #2b2b2b);
+    color: #fff;
+    font-family: Montserrat, sans-serif;
+	font-weight: normal;
+	font-size: 16pt;
+    border-style: none;
+    margin: 4px;
+	border-radius: 4px;
+	outline: 2px solid rgb(80, 80, 80);
+}
+
+input:focus {
+	outline: 2px solid #fff;
+}
+
+.button {
+	background-color: #fff;
+	background: linear-gradient(#f3f3f3, #c4c4c4);
+	color: #000;
+	border-color: gray;
+	border-style: solid;
+	border-width: 2px;
+	border-radius: 6px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	text-decoration: none;
+	font-family: Montserrat, sans-serif;
+	font-weight: normal;
+	font-size: 16pt;
+	text-align: center;
+	cursor: pointer;
+	transform: scale(1);
+	text-decoration: none;
+	transition-property: all;
+	transition-duration: 100ms;
+    margin: 4px;
+}
+
+.button:hover {
+	background-color: #fff;
+	background: linear-gradient(#f3f3f3, #cece8b);
+	color: #000;
+	text-decoration: none;
+	transform: scale(1.02);
+	transition-property: all;
+	transition-duration: 100ms;
+}
+
+.button:active {
+	color: #000;
+	background-color: #c0ffc0;
+	background: linear-gradient(#f3f3f3, #c0ffc0);
+	text-decoration: none;
+	transition-property: all;
+	transition-duration: 50ms;
+	transform: scale(0.98);
+}
+
+.button:disabled {
+	background-color: #b3b3b3;
+	background: linear-gradient(#0c0c0c, #3b3b3b);
+	color: #ffffffa2;
+	cursor: not-allowed;
+	transition-property: all;
+	transition-duration: 100ms;
+}
+
+.button:disabled:hover {
+	background-color: #fff;
+	background: linear-gradient(#0c0c0c, #663030);
+	text-decoration: none;
+	transition-property: all;
+	transition-duration: 100ms;
+}
+
+.button:disabled:active {
+	background-color: #ffc0c0;
+	text-decoration: none;
+	border-style: none;
+	transition-property: all;
+	transition-duration: 50ms;
 }
