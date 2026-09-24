@@ -76,6 +76,7 @@ async function PerformLogin() {
 
         if (response.ok) {
             Cookies.set("LogonToken", result.token);
+            window.location.assign("/User/Home");
         } else {
             alert(`${result.message}\r\nYou were not logged in.`);
             window.LoadingOverlay(false);
