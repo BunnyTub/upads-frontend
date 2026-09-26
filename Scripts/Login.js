@@ -1,5 +1,5 @@
-const passwordAuthenticationURL = "https://test.apatheticdell.net/api/collections/upads_forecasters/auth-with-password";
-const refreshAuthenticationURL = "https://test.apatheticdell.net/api/collections/upads_forecasters/auth-refresh";
+const passwordAuthenticationURL = "https://zuni.apatheticdell.net/api/collections/upads_forecasters/auth-with-password";
+const refreshAuthenticationURL = "https://zuni.apatheticdell.net/api/collections/upads_forecasters/auth-refresh";
 
 async function DestroyLogonToken() {
     Cookies.remove("LogonToken");
