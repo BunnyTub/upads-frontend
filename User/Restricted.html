@@ -8,10 +8,13 @@
     </head>
     <body>
         {% include UserRestrictedNavigationBar.html %}
-        <h1 class="HorizontallyCenteredText">Your account is currently restricted!</h1>
-        <h2 class="HorizontallyCenteredText">Your account has been restricted due to inappropriate behavior.<br>The restriction must be lifted before you can log in again.</h2>
         <div class="FlexCenter">
-            <button class="button" href="/User/Login">Unlock</a>
+            <img class="LargeImage" src="/Images/Rasters/GenericError.png"></img>
         </div>
+        <h1 class="HorizontallyCenteredText">Your account is currently restricted!</h1>
+        <h2 class="HorizontallyCenteredText">Your account has been restricted due to inappropriate behavior.<br>Please contact ActiWeather moderators for more information.</h2>
+        <!-- <div class="FlexCenter">
+            <button class="button" href="/User/Login">Unlock</a>
+        </div> -->
     </body>
 </html>

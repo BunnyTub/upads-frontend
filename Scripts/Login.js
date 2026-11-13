@@ -1,8 +1,16 @@
-const passwordAuthenticationURL = "https://zuni.apatheticdell.net/api/collections/upads_forecasters/auth-with-password";
-const refreshAuthenticationURL = "https://zuni.apatheticdell.net/api/collections/upads_forecasters/auth-refresh";
+window.BaseUserInfo = null;
+const hostingURL = "https://zuni.apatheticdell.net";
+const passwordAuthenticationURL = `${hostingURL}/api/collections/upads_forecasters/auth-with-password`;
+const refreshAuthenticationURL = `${hostingURL}/api/collections/upads_forecasters/auth-refresh`;
+const recordsURL = `${hostingURL}/api/collections/upads_forecasters/records`;
 
-async function DestroyLogonToken() {
-    Cookies.remove("LogonToken");
+function DestroyLogonToken() {
+    const logonToken = Cookies.get("LogonToken");
+
+    if (logonToken) {
+        Cookies.remove("LogonToken");
+        window.location.reload();
+    }
 }
 
 async function PrePerformLogon() {
@@ -22,12 +30,13 @@ async function PrePerformLogon() {
 
             if (response.ok) {
                 Cookies.set("LogonToken", result.token);
+                window.BaseUserInfo = result;
 
                 if (path === "/User/Login") {
                     let statusText = document.getElementById("LoginStatusText");
                     let loginInputs = document.getElementById("LoginDetailsEntry");
                     loginInputs.style.visibility = "none";
-                    statusText.innerHTML = "<span style='color: #00dd00'>You are already logged in. <a href='/User/Logout'>Click here to logout.</a></span>";
+                    statusText.innerHTML = "<span style='color: #00dd00'>You are already logged in.</span><a href='/User/Home'>Click here to go home.</a><a href='/User/Logout'>Click here to logout.</a>";
                 }
             } else {
                 DestroyLogonToken();
@@ -40,7 +49,17 @@ async function PrePerformLogon() {
                 let statusText = document.getElementById("LoginStatusText");
                 let loginInputs = document.getElementById("LoginDetailsEntry");
                 loginInputs.style.visibility = "visible";
-                statusText.innerHTML = "<span style='color: #dddd00'>Please enter your credentials.</span>";
+                statusText.innerHTML = "<span style=\"color: #5663d3ff\">The dashboard is awaiting! <a style=\"zoom: 60%;\" href=\"#\" onclick=\"alert('If you forgot your username or password, please contact the ActiWeather administrators for help with resetting your information. If the system is failing to log you in, please contact the ActiWeather developers.');\">Having trouble logging in?</a></span>";
+            } else {
+                if (path === "/User/Logout") return;
+                if (path === "/User/Restricted") return;
+
+                if (path.startsWith("/User/")) {
+                    window.LoadingOverlay(true);
+                    alert("You seem to be lost... You'll be taken to the login page!");
+                    window.NavigationBarOverlay(false);
+                    window.location.replace("/User/Login");
+                }
             }
         }
     } catch (error) {
@@ -49,9 +68,9 @@ async function PrePerformLogon() {
             let statusText = document.getElementById("LoginStatusText");
             let loginInputs = document.getElementById("LoginDetailsEntry");
             loginInputs.style.visibility = "visible";
-            statusText.innerHTML = `<span style='color: #dd0000'>${error.message}<br>Please enter your credentials.</span>`;
+            statusText.innerHTML = `<span style='color: rgb(255, 100, 0)'>${error.message}<br>Please enter your credentials again.</span>`;
         } else {
-            alert("There was a problem logging you in. Please refresh, then try again.");
+            alert("There was a problem with your session. It may have expired since the last time you've used it. Please refresh, then try again.");
         }
     }
 }
@@ -76,8 +95,14 @@ async function PerformLogin() {
 
         if (response.ok) {
             Cookies.set("LogonToken", result.token);
+            window.BaseUserInfo = result;
             window.location.assign("/User/Home");
         } else {
+            if (response.status === 403) {
+                window.location.replace("/User/Restricted");
+                return;
+            }
+
             alert(`${result.message}\r\nYou were not logged in.`);
             window.LoadingOverlay(false);
         }
@@ -90,11 +115,16 @@ async function PerformLogin() {
     //window.location.reload();
 }
 
-document.addEventListener("DOMContentLoaded", (event) => {
+document.addEventListener("DOMContentLoaded", async () => {
     if (path === "/User/Logout") {
         DestroyLogonToken();
     } else {
-        PrePerformLogon();
+        await PrePerformLogon();
+
+        document.querySelectorAll(".UserDisplayName").forEach((displayNameElement) => {
+            displayNameElement.innerText = window.BaseUserInfo.record.name;
+            displayNameElement.style.opacity = 1;
+        });
     }
 });
 
