@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     overlay.id = "LoadingOverlay";
 
     let icon = document.createElement("img");
-    icon.id = "LoadingIcon";
+    icon.className = "LoadingIcon";
     icon.src = "/Images/Rasters/LargeLoadingSpinner.png";
 
     document.body.append(overlay);

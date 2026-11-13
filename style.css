@@ -61,6 +61,11 @@ h2 {
     font-weight: 400;
 }
 
+p {
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
 #LoadingOverlay {
 	position: absolute;
 	top: 0;
@@ -75,7 +80,7 @@ h2 {
 	pointer-events: none;
 }
 
-#LoadingIcon {
+.LoadingIcon {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -85,6 +90,10 @@ h2 {
 	margin: 0;
 	animation: LoadingSpinnerAnimation 1250ms infinite linear;
 	pointer-events: none;
+}
+
+img.Spin {
+	animation: LoadingSpinnerAnimation 1250ms infinite linear;
 }
 
 @keyframes LoadingSpinnerAnimation {
@@ -161,10 +170,6 @@ h2 {
 
 #LoginDetailsEntry {
 	visibility: collapse;
-}
-
-.UserDisplayName {
-	opacity: 0;
 }
 
 a {

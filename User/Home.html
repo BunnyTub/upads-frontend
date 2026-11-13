@@ -8,10 +8,22 @@
     </head>
     <body>
         {% include LoggedInNavigationBar.html %}
-        <h1 class="HorizontallyCenteredText">Test</h1>
-        <h2 class="HorizontallyCenteredText">This is an example page. There's nothing here yet.</h2>
-        <div class="FlexCenter">
-            <button class="button">Button that does nothing</a>
+        <h1 class="HorizontallyCenteredText PageTitle">UPADS Bulletin Board</h1>
+        <div class="GroupedContainer">
+            <h2 class="HorizontallyLeftText">Your assigned offices are listed here.</h2>
+            <p class="HorizontallyLeftText UserOfficeList">
+                <img class="SmallImage Spin" style="margin-top: 16px; margin-bottom: -20px;" src="/Images/Rasters/LargeLoadingSpinner.png"></img>
+            </p>
         </div>
+
+        <div class="GroupedContainer">
+            <h2 class="HorizontallyLeftText">All active bulletins are listed here.</h2>
+            <p class="HorizontallyLeftText">
+                <img class="SmallImage Spin" style="margin-top: 16px; margin-bottom: -20px;" src="/Images/Rasters/LargeLoadingSpinner.png"></img>
+            </p>
+        </div>
+        <!-- <div class="FlexCenter">
+            <button class="button">Button that does nothing</a>
+        </div> -->
     </body>
 </html>

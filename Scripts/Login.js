@@ -120,15 +120,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (path === "/User/Logout") {
         DestroyLogonToken();
     } else {
+
         await PrePerformLogon();
         if (window.BaseUserInfo == null) return;
 
         document.querySelectorAll(".UserDisplayName").forEach((displayNameElement) => {
             displayNameElement.innerText = window.BaseUserInfo.record.name;
-            displayNameElement.style.opacity = 1;
         });
 
-        let officesHTML = "";
+        let offices = "";
         // const fixedOfficeHTML = "<p class=\"HorizontallyLeftText\"></p>";
 
         window.BaseUserInfo.record.office.forEach(async (officeId) => {
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const result = await response.json();
 
                 if (response.ok) {
-                    officesHTML = officesHTML.concat(" ", `<p class=\"HorizontallyLeftText\">${result.name}</p>`);
+                    offices = offices.concat(" ", `${result.name}`);
                 } else {
                     alert("There was a problem getting offices.");
                     return;
@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
            
             document.querySelectorAll(".UserOfficeList").forEach((officeListElement) => {
-                officeListElement.innerHTML = officesHTML;
+                officeListElement.innerText = offices;
             });
         });
     }
