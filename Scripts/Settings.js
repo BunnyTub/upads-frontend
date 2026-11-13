@@ -20,7 +20,7 @@ async function ChangeDisplayName() {
     
         window.LoadingOverlay(true);
 
-        const response = await fetch(`${recordsURL}/${baseUserInfo.record.id}`, {
+        const response = await fetch(`${forecastersRecordsURL}/${window.BaseUserInfo.record.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -41,6 +41,41 @@ async function ChangeDisplayName() {
         alert("There was a problem setting your display name.");
     }
     // header Authorization:TOKEN
+
+    window.LoadingOverlay(false);
+}
+
+async function RestrictMyAccount() {
+    //window.NavigationBarOverlay(false);
+    try {
+        let newDisplayName = prompt("You will LOSE ACCESS to your account.\nPlease confirm by typing \"GOODBYE\".");
+
+        if (newDisplayName == null || newDisplayName == "" || newDisplayName !== "GOODBYE") {
+            alert("Your account was not restricted.");
+            return;
+        }
+    
+        window.LoadingOverlay(true);
+
+        const response = await fetch(`${forecastersRecordsURL}/${window.BaseUserInfo.record.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ restricted: true })
+        });
+        
+        const result = await response.json();
+
+        if (response.ok) {
+            window.location.replace("/User/Logout");
+        } else {
+            alert(`${result.message}\r\nThere was a problem restricting your account.`);
+        }
+    } catch (error) {
+        console.error(error.message);
+        alert("There was a problem restricting your account.");
+    }
 
     window.LoadingOverlay(false);
 }

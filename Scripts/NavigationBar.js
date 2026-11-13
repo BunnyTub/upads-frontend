@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", (event) => {
+document.addEventListener("DOMContentLoaded", () => {
     let overlay = document.getElementById("TopNavigationBar");
     
     window.NavigationBarOverlay = function NavigationBarOverlay(visible) {

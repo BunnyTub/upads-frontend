@@ -9,10 +9,26 @@
     </head>
     <body>
         {% include LoggedInNavigationBar.html %}
+        <h1 class="HorizontallyCenteredText PageTitle">Settings</h1>
+
         <div class="GroupedContainer">
             <h1 class="HorizontallyLeftText">Change your display name</h1>
             <h2 class="HorizontallyLeftText">Hi <u class="UserDisplayName"></u>! You can change your display name here.</h2>
             <button class="button" onclick="ChangeDisplayName();">Change name</a>
+        </div>
+
+        <div class="GroupedContainer">
+            <h1 class="HorizontallyLeftText">Find your current office(s)</h1>
+            <h2 class="HorizontallyLeftText">Your assigned offices are listed here.</h2>
+            <div class="UserOfficeList"></div>
+            <p class="HorizontallyLeftText">Contact an ActiWeather administrator to change your assigned offices.</p>
+            <button class="button" onclick="" disabled>Change offices</a>
+        </div>
+
+        <div class="GroupedContainer">
+            <h1 class="HorizontallyLeftText">Do dangerous activities here</h1>
+            <h2 class="HorizontallyLeftText">Bet it all on black.</h2>
+            <button class="button" onclick="RestrictMyAccount();">Deactivate/Restrict my account</a>
         </div>
     </body>
 </html>

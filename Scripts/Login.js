@@ -2,7 +2,8 @@ window.BaseUserInfo = null;
 const hostingURL = "https://zuni.apatheticdell.net";
 const passwordAuthenticationURL = `${hostingURL}/api/collections/upads_forecasters/auth-with-password`;
 const refreshAuthenticationURL = `${hostingURL}/api/collections/upads_forecasters/auth-refresh`;
-const recordsURL = `${hostingURL}/api/collections/upads_forecasters/records`;
+const forecastersRecordsURL = `${hostingURL}/api/collections/upads_forecasters/records`;
+const officesRecordsURL = `${hostingURL}/api/collections/upads_offices/records`;
 
 function DestroyLogonToken() {
     const logonToken = Cookies.get("LogonToken");
@@ -120,10 +121,41 @@ document.addEventListener("DOMContentLoaded", async () => {
         DestroyLogonToken();
     } else {
         await PrePerformLogon();
+        if (window.BaseUserInfo == null) return;
 
         document.querySelectorAll(".UserDisplayName").forEach((displayNameElement) => {
             displayNameElement.innerText = window.BaseUserInfo.record.name;
             displayNameElement.style.opacity = 1;
+        });
+
+        let officesHTML = "";
+        // const fixedOfficeHTML = "<p class=\"HorizontallyLeftText\"></p>";
+
+        window.BaseUserInfo.record.office.forEach(async (officeId) => {
+            try {
+                const response = await fetch(`${officesRecordsURL}/${officeId}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+                
+                const result = await response.json();
+
+                if (response.ok) {
+                    officesHTML = officesHTML.concat(" ", `<p class=\"HorizontallyLeftText\">${result.name}</p>`);
+                } else {
+                    alert("There was a problem getting offices.");
+                    return;
+                }
+            } catch (error) {
+                alert("There was a problem getting offices.");
+                return;
+            }
+           
+            document.querySelectorAll(".UserOfficeList").forEach((officeListElement) => {
+                officeListElement.innerHTML = officesHTML;
+            });
         });
     }
 });
