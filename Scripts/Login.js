@@ -120,8 +120,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (path === "/User/Logout") {
         DestroyLogonToken();
     } else {
-
         await PrePerformLogon();
+        
         if (window.BaseUserInfo == null) return;
 
         document.querySelectorAll(".UserDisplayName").forEach((displayNameElement) => {
